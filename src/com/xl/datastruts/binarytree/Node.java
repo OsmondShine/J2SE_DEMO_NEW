@@ -3,7 +3,7 @@ package com.xl.datastruts.binarytree;
 /**
  * @author 作者:xl
  * @data   创建时间:2017-10-28
- * @description 二叉树节点类
+ * @description 二叉树结点类
  * @version 1.0
  */
 
