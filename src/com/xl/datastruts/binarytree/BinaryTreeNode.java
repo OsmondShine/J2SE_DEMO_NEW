@@ -2,96 +2,73 @@ package com.xl.datastruts.binarytree;
 
 /**
  * @author 作者:xl
- * @data   创建时间:2017-6-19
+ * @data   创建时间:2017-10-28
  * @description 
  * @version 1.0
  */
 
-public class BinaryTreeNode {
-	private Object element;//结点元素 
-    private  BinaryTreeNode leftChild;//左子树  
-    private  BinaryTreeNode rightChild; //右子树 
- 
-    /**
-     * 无参构造函数
-     */ 
-    public BinaryTreeNode() { 
-    } 
- 
-    /**
-     * 指定结点元素的构造函数
-     * @param theElement
-     */ 
-    public BinaryTreeNode(Object theElement) { 
-        element = theElement; 
-    } 
- 
-    /**
-     * 指定结点元素，左孩子，右孩子的构造函数
-     * @param theElement 结点元素
-     * @param theleftChild 左孩子
-     * @param therightChild 右孩子
-     */ 
-    public BinaryTreeNode(Object theElement, BinaryTreeNode theleftChild, 
-            BinaryTreeNode therightChild) { 
-        element = theElement; 
-        leftChild = theleftChild; 
-        rightChild = therightChild; 
-    } 
- 
-    /**
-     * 获取当前结点大的左孩子
-     * @return 当前结点的左孩子
-     */ 
-    public BinaryTreeNode getLeftChild() { 
-        return leftChild; 
-    } 
- 
-    /**
-     * 获取当前结点的右孩子
-     * @return 当前结点的右孩子
-     */ 
-    public BinaryTreeNode getRightChild() { 
-        return rightChild; 
-    } 
- 
-    /**
-     * 获取当前结点的元素
-     * @return 当前结点的元素
-     */ 
-    public Object getElement() { 
-        return element; 
-    } 
- 
-    /**
-     * 设置当前结点的左孩子
-     * @param theLeftChild 当前结点设置后的左孩子
-     */ 
-    public void setLeftChild(BinaryTreeNode theLeftChild) { 
-        leftChild = theLeftChild; 
-    } 
- 
-    /**
-     * 设置当前结点 的右孩子
-     * @param theRightChild 当前结点设置后的右孩子
-     */ 
-    public void setRightChild(BinaryTreeNode theRightChild) { 
-        rightChild = theRightChild; 
-    } 
- 
-    /**
-     * 设置当前结点的元素
-     * @param theElement 当前结点设置后的元素
-     */ 
-    public void setElement(Object theElement) { 
-        element = theElement; 
-    } 
- 
-    /**
-     * 打印当前结点元素
-     */ 
-    public String toString() { 
-        return element.toString(); 
-    } 
+public class BinaryTree {
+	/*
+	 *二叉树的先序中序后序遍历 
+	 */
+	public Node init(){
+		//因为非叶子结点会用到下面的结点，而初始化是顺序进行的，故应逆序建立结点
+		Node J = new Node(8, null, null);
+		Node H = new Node(4, null, null);  
+	    Node G = new Node(2, null, null);
+	    Node F = new Node(7, null, J);  
+	    Node E = new Node(5, H, null);  
+	    Node D = new Node(1, null, G);  
+	    Node C = new Node(9, F, null);  
+	    Node B = new Node(3, D, E);  
+	    Node A = new Node(6, B, C);
+	    return A;	//返回根结点
+	}
+	
+	public void printNode(Node node){
+		System.out.print(node.getData()+" ");
+	}
+	
+	public void theFirstTraversal(Node root){	//先序遍历
+		printNode(root);
+		if (root.getLeftNode() != null){	//递归遍历左子树
+			theFirstTraversal(root.getLeftNode());
+		}
+		if (root.getRightNode() != null){	//递归遍历右子树
+			theFirstTraversal(root.getRightNode());
+		}
+	}
+
+	public void theInOrderTraversal(Node root){	//中序遍历
+		if (root.getLeftNode() != null){
+			theInOrderTraversal(root.getLeftNode());
+		}
+		printNode(root);
+		if (root.getRightNode() != null){
+			theInOrderTraversal(root.getRightNode());
+		}
+	}
+	
+	public void thePostTraversal(Node root){	//后序遍历
+		if (root.getLeftNode() != null){
+			thePostTraversal(root.getLeftNode());
+		}
+		if (root.getRightNode() != null){
+			thePostTraversal(root.getRightNode());
+		}
+		printNode(root);
+	}
+	
+	public static void main(String[] args) {
+		BinaryTree tree = new BinaryTree();
+		Node root = tree.init();
+		System.out.println("先序遍历");
+		tree.theFirstTraversal(root); 
+		System.out.println("");
+		System.out.println("中序遍历");
+		tree.theInOrderTraversal(root);
+		System.out.println("后序遍历");
+		tree.thePostTraversal(root);
+		}
 }
 
